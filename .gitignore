@@ -39,6 +39,7 @@
 *.i*86
 *.x86_64
 *.hex
+tictactoe*
 
 # Debug files
 *.dSYM/
@@ -54,5 +55,8 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+#Personal
+NoteToSelf.md
 
 # End of https://www.toptal.com/developers/gitignore/api/c
