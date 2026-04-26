@@ -63,5 +63,7 @@ TESTING.md
 DEBUGGING.md
 all.txt
 tests/
+test_runner
+obj/
 
 # End of https://www.toptal.com/developers/gitignore/api/c
