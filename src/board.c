@@ -9,7 +9,7 @@ void create(board_t* board) {
 
 int getpiece(board_t board, uint64_t pos) {
     if (pos >= BOARD_SIZE * BOARD_SIZE) {
-        // log print pos larger than board
+        printf("Position was larger than board!");
         return -1;
     }
 
@@ -22,7 +22,7 @@ int getpiece(board_t board, uint64_t pos) {
 
 int place(board_t board, uint8_t side, uint64_t pos) {
     if (pos >= BOARD_SIZE * BOARD_SIZE) {
-        // log print pos larger than board
+        printf("Position was larger than board!");
         return -1;
     }
     // edit cell in board
