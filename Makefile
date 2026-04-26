@@ -56,6 +56,11 @@ $(TEST_OBJ_DIR)/%.o: $(TEST_DIR)/%.c | $(TEST_OBJ_DIR)
 $(TEST_BIN): $(DEBUG_OBJ) $(TEST_OBJ)
 	$(CC) $(CFLAGS) $(DEBUG_FLAGS) -o $(TEST_BIN) $(DEBUG_OBJ) $(TEST_OBJ)
 
+# Debug
+debug: $(DEBUG_OBJ_DIR) $(DEBUG_OBJ) $(DEBUG_OBJ_DIR)/main.o
+	$(CC) $(CFLAGS) $(DEBUG_FLAGS) -o $(BIN)_debug $(DEBUG_OBJ) $(DEBUG_OBJ_DIR)/main.o
+	gdb $(BIN)_debug
+
 .PHONY: all test clean
 
 clean:

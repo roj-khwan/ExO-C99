@@ -7,13 +7,28 @@ void create(board_t* board) {
     *board = (board_t) calloc(BOARD_T_SIZE, sizeof(boardbyte_t));
 }
 
-int place(board_t board, uint8_t side, uint8_t pos) {
-    // Check
+int getpiece(board_t board, uint64_t pos) {
+    if (pos >= BOARD_SIZE * BOARD_SIZE) {
+        // log print pos larger than board
+        return -1;
+    }
+
+    int filled, piece;
+    filled = getbit(board, pos * BITWIDE);
+    piece = getbit(board, pos * BITWIDE + 1);
     
+    return filled + (piece & filled);
+}
+
+int place(board_t board, uint8_t side, uint64_t pos) {
+    if (pos >= BOARD_SIZE * BOARD_SIZE) {
+        // log print pos larger than board
+        return -1;
+    }
     // edit cell in board
-    // 1 cell contain of 2 bit, Xx
-    // X - side
-    // x - filled or not
+    // 1 cell contain of 2 bit, mn
+    // m - side
+    // n - filled or not
     setbit(board, pos * BITWIDE, 1);
     setbit(board, pos * BITWIDE + 1, side);
 

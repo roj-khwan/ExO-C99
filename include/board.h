@@ -12,5 +12,6 @@ typedef uint8_t* board_t;
 #define BOARD_T_SIZE (BOARD_SIZE * BOARD_SIZE + 3) / 4
 
 void create(board_t* out);
-int place(board_t board, uint8_t side, uint8_t pos);
+int getpiece(board_t board, uint64_t pos);
+int place(board_t board, uint8_t side, uint64_t pos);
 void destroy(board_t out);

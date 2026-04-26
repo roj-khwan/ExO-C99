@@ -1,7 +1,7 @@
 # ExO-C99 Task List
 
 ## Core Game Logic
-- [ ] Implement `place()` function in board.c - place pieces on board
+- [x] Implement `place()` function in board.c - place pieces on board
 - [ ] Implement win condition checking in game.c
 - [ ] Implement draw condition checking
 - [ ] Add move validation (check if position already occupied)
