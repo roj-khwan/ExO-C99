@@ -34,7 +34,17 @@ int place(board_t board, uint8_t side, uint64_t pos) {
 
     return 0;
 }
-// fetching
+
+int checkpattern(board_t board, uint64_t* arr, size_t length, uint8_t piece) {
+    for (size_t i = 0; i < length; i++){
+        if (BOARD_SIZE * BOARD_SIZE <= arr[i])
+            return 0;
+
+        if (piece != getpiece(board, arr[i]))
+            return 0;
+    }
+    return 1; 
+}
 
 void destroy(board_t board) {
     free(board);

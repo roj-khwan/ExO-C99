@@ -58,5 +58,10 @@ dkms.conf
 
 #Personal
 NoteToSelf.md
+TODO.md
+TESTING.md
+DEBUGGING.md
+all.txt
+tests/
 
 # End of https://www.toptal.com/developers/gitignore/api/c
