@@ -3,7 +3,7 @@
 
 int coreloop(board_t board){
     static int side = 0;
-    int pos, ret = -1;
+    int pos, ret = -1, turn = 0;
     char buf[100];
 
     // loop every time input was invalid
@@ -18,8 +18,6 @@ int coreloop(board_t board){
     // check can't play
     if (!ret)
         return -1;
-    
-    side = 1 - side; // switch side 1 0
 
     // disply board
     display(board);
@@ -29,13 +27,12 @@ int coreloop(board_t board){
     // 0 - tie
     // 1 - first player win
     // 2 - second player win
-    if (checkwin(board, 1)) 
-        return 1;
-    else if (checkwin(board, 2))
-        return 2;
-    else if (checkfull(board))
+    if (checkwin(board, side + 1)) 
+        return side + 1;
+    else if (++turn >= 9)
         return 0;
     
+    side = 1 - side; // switch side 1 0
     return -1;
 }
 

@@ -1,5 +1,8 @@
 #include "game.h"
+#include <stdbool.h>
+
 // game run
+// TODO : no output make the out put on main side only
 int play(board_t board, uint8_t side, uint64_t pos) {
   if (side > 1) {
     printf("Side is binary!");
@@ -50,31 +53,36 @@ int checkfull(board_t board) {
   return 1;
 }
 
-int checkwin(board_t board, uint8_t piece) {
+void build_winpattern(uint64_t (*arr)[BOARD_SIZE]) {
   size_t i, j;
-  uint8_t win = 0;
-  uint64_t harr[BOARD_SIZE];
-  uint64_t varr[BOARD_SIZE];
-
+  
   for (i = 0; i < BOARD_SIZE; i++) {
     for (j = 0; j < BOARD_SIZE; j++) {
-      harr[j] = i * BOARD_SIZE + j;
-      varr[j] = i + j * BOARD_SIZE;
+      arr[i][j] = i + j * BOARD_SIZE; // verticals
+      arr[i + BOARD_SIZE][j] = i * BOARD_SIZE + j; // horizontals
     }
-    // check vertical
-    win |= checkpattern(board, varr, BOARD_SIZE, piece);
-    // check horizontal
-    win |= checkpattern(board, harr, BOARD_SIZE, piece);
   }
 
   for (i = 0; i < BOARD_SIZE; i++) {
-    harr[i] = i * BOARD_SIZE + i;
-    varr[i] = i * BOARD_SIZE + BOARD_SIZE - 1 - i;
+    arr[2 * BOARD_SIZE][i] = i * BOARD_SIZE + i;
+    arr[2 * BOARD_SIZE + 1][i] = i * BOARD_SIZE + BOARD_SIZE - 1 - i;
   }
-  // check forward diagonal
-  win |= checkpattern(board, varr, BOARD_SIZE, piece);
-  // check backward diagonal
-  win |= checkpattern(board, harr, BOARD_SIZE, piece);
+}
+
+int checkwin(board_t board, uint8_t piece) {
+  #define PATTERN_SIZE BOARD_SIZE * 2 + 2
+  // horizontals + verticals + 2 diagonals
+  static uint64_t winpattern[PATTERN_SIZE][BOARD_SIZE];
+  static char patternbuilt = false; 
+
+  if (!patternbuilt) {
+    build_winpattern(winpattern);
+    patternbuilt = true;
+  }
+  for (size_t i = 0; i < BOARD_SIZE * 2 + 2; i++) {
+    if (checkpattern(board, winpattern[i], BOARD_SIZE, piece))
+      return true;
+  }
   
-  return win;
+  return false;
 }
