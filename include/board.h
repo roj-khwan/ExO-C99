@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
-#include <bitutils.h>
+#include "bitutils.h"
 
 typedef uint8_t boardbyte_t;
 typedef uint8_t* board_t; 

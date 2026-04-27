@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <board.h>
+#include "board.h"
 
 int checkfull(board_t board);
 int checkwin(board_t board, uint8_t piece);

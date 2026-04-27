@@ -1,7 +1,5 @@
-#include <stdio.h>
-#include <stdint.h>
-#include <game.h>
-#include <bitutils.h>
+#include "stdio.h"
+#include "game.h"
 
 int coreloop(board_t board){
     static int side = 0;

@@ -1,67 +1,63 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -Iinclude
 DEBUG_FLAGS = -g -O0
+AR = ar
 
-# Source and object dirs
+# Directories
 SRC_DIR = src
 OBJ_DIR = obj
 TEST_DIR = tests
-TEST_OBJ_DIR = $(OBJ_DIR)/tests
-DEBUG_OBJ_DIR = $(OBJ_DIR)/debug
-BIN = tictactoe
-TEST_BIN = test_runner
+LIB_DIR = lib
+BIN_DIR = bin
 
-# Auto find all .c files (exclude main), map to obj/
-SRC = $(filter-out $(SRC_DIR)/main.c, $(wildcard $(SRC_DIR)/*.c))
-OBJ = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
-DEBUG_OBJ = $(patsubst $(SRC_DIR)/%.c, $(DEBUG_OBJ_DIR)/%.o, $(SRC))
+# Targets
+LIBRARY = $(LIB_DIR)/libexo.a
+MAIN_BIN = $(BIN_DIR)/exo
+TEST_BIN = $(BIN_DIR)/test_runner
 
+# Source files
+CORE_SRC = $(filter-out $(SRC_DIR)/main.c, $(wildcard $(SRC_DIR)/*.c))
+CORE_OBJ = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(CORE_SRC))
 
-# Test sources
 TEST_SRC = $(wildcard $(TEST_DIR)/*.c)
-TEST_OBJ = $(patsubst $(TEST_DIR)/%.c, $(TEST_OBJ_DIR)/%.o, $(TEST_SRC))
+TEST_OBJ = $(patsubst $(TEST_DIR)/%.c, $(OBJ_DIR)/%.o, $(TEST_SRC))
 
-# Main target
-all: $(BIN)
+# Main targets
+all: $(MAIN_BIN)
 
-$(BIN): $(OBJ_DIR) $(OBJ) $(OBJ_DIR)/main.o
-	$(CC) $(CFLAGS) -o $(BIN) $(OBJ) $(OBJ_DIR)/main.o
+$(MAIN_BIN): $(BIN_DIR) $(LIBRARY) $(SRC_DIR)/main.c
+	$(CC) $(CFLAGS) -o $@ $(SRC_DIR)/main.c -L$(LIB_DIR) -lexo
 
-# Compile each .c into obj/
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+# Library creation
+$(LIBRARY): $(LIB_DIR) $(CORE_OBJ)
+	$(AR) -rcs $@ $(CORE_OBJ)
+
+# Object files for library
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
-	
-# Compile each .c into obj/
-$(DEBUG_OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(DEBUG_OBJ_DIR)
+
+# Test object files
+$(OBJ_DIR)/%.o: $(TEST_DIR)/%.c | $(OBJ_DIR)
 	$(CC) $(CFLAGS) $(DEBUG_FLAGS) -c $< -o $@
 
-# Create obj dir if not exist
+# Directories
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
+
+$(LIB_DIR):
+	mkdir -p $(LIB_DIR)
+
+$(BIN_DIR):
+	mkdir -p $(BIN_DIR)
+
 # Test targets
 test: $(TEST_BIN)
-	./$(TEST_BIN)    
+	./$(TEST_BIN)
 
-$(TEST_OBJ_DIR):
-	mkdir -p $(TEST_OBJ_DIR)
-
-$(DEBUG_OBJ_DIR):
-	mkdir -p $(DEBUG_OBJ_DIR)
-
-# Compile test files
-$(TEST_OBJ_DIR)/%.o: $(TEST_DIR)/%.c | $(TEST_OBJ_DIR)
-	$(CC) $(CFLAGS) $(DEBUG_FLAGS) -c $< -o $@
-
-# Link test executable (exclude main.o)
-$(TEST_BIN): $(DEBUG_OBJ) $(TEST_OBJ)
-	$(CC) $(CFLAGS) $(DEBUG_FLAGS) -o $(TEST_BIN) $(DEBUG_OBJ) $(TEST_OBJ)
-
-# Debug
-debug: $(DEBUG_OBJ_DIR) $(DEBUG_OBJ) $(DEBUG_OBJ_DIR)/main.o
-	$(CC) $(CFLAGS) $(DEBUG_FLAGS) -o $(BIN)_debug $(DEBUG_OBJ) $(DEBUG_OBJ_DIR)/main.o
-	gdb $(BIN)_debug
+$(TEST_BIN): $(BIN_DIR) $(LIBRARY) $(TEST_OBJ)
+	$(CC) $(CFLAGS) $(DEBUG_FLAGS) -o $@ $(TEST_OBJ) -L$(LIB_DIR) -lexo
 
 .PHONY: all test clean
 
 clean:
-	rm -rf $(OBJ_DIR) $(BIN) $(TEST_BIN)
+	rm -rf $(OBJ_DIR) $(LIB_DIR) $(BIN_DIR)

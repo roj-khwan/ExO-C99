@@ -1,4 +1,4 @@
-#include <game.h>
+#include "game.h"
 // game run
 int play(board_t board, uint8_t side, uint64_t pos) {
   if (side > 1) {
