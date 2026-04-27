@@ -67,4 +67,6 @@ all.txt
 tests/
 test_runner
 obj/
+in.txt
+build/
 # End of https://www.toptal.com/developers/gitignore/api/c

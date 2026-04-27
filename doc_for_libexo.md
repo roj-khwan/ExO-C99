@@ -1,13 +1,22 @@
-# libexo
+# libexo.a
 libexo is a library that was a combination of 3 sources file, create for the purpose of computing a game of tictactoe.
 
-## Headers Files
-## board.h
-board.h was created for handle normal board logic, with a define board size in the header files, if desire you can fix the `BOARD_SIZE`. As far as I know the program was dynamically program to handle board of any size.
-## game.h 
-game.h was created for handle logic of a game tictactoe, this too was dynamically program to handle every board size
-## bitutils.h
-bitutils.h was create for two function, set and get a bit from an array of bytes.
+## Structure
+libexo was create in structure of this
+```
+game.h -> board.h -> bitutils.h
+```
+But there maybe a time where you only want to use bitutils for your code, but not the whole game, so I create a total of 4 libraries!
+### Libraries
+#### libgame.a
+depend on libboard.a and handle high-level game logics such as check win/full, play, and display the board.
+#### libboard.a
+depend on libbitutils.a and handle base board level stuffs, such as create and destroy, get and set.
+#### libbitutils.a
+low level bit manipulation tools, do not depend on any libs, they handle only low-level bit stuff, get and set.
+#### libexo.a
+simply an interface wrapper for the app/main.c to use.
+Despite my word choices of dependencies, each library can run on their own without the need of the depending library due to being static library.
 
 ## Functions
 ### game.h
@@ -17,7 +26,8 @@ bitutils.h was create for two function, set and get a bit from an array of bytes
 - int display(board_t board): display the whold board from bottom to top suitable for numkeys user.
 ### board.h
 - void create(board_t* out): allocate minimize amount of boardbyte_t for the board.
-- int getpiece(board_t board, uint64_t pos): fetching the piece from the board data at given position.
+- int getpiece(board_t boa
+Despite my word choices of dependencies, each library can run on their own without the need of the depending library due to being static library.rd, uint64_t pos): fetching the piece from the board data at given position.
 - int place(board_t board, uint8_t side, uint64_t pos): placing piece at given pos without any care and will overwrite the position.
 - int checkpattern(board_t board, uint64_t* arr, size_t length, uint8_t piece): check if the given position in the arr was all matching with the given piece.
 - void destroy(board_t out): free the allocated memory from the board.

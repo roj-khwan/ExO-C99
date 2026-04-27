@@ -1,5 +1,5 @@
 # ExO-C99
-ExO-C99 is simply a tictactoe program that is written in c programming language, as a personal project of mine on messing with bit and byte.
+ExO-C99 is simply a tictactoe program that is written in C programming language as a personal project of mine on messing with bit and byte.
 
 ## Description
 ExO-C99 as an program is a simply two player tictactoe, that was optimized for space.
@@ -8,13 +8,18 @@ ExO-C99 offer a library that able to use on other program called [libexo](doc_fo
 
 ## How to use
 ### Requirements
-- Make 4.3+
+- Cmake 3.10+
+- Make 4.3+ 
 - C Compiler, in my case I use gnu 13.3.0+
+### Instructions
 In case of interest of the program or the library, it can be simply done by downloading the program thru favorable method.
-If the files were present, please run the given command on your command prompt/terminal in the project.
+If the files were present, please run the given command on your command prompt/terminal in the source directory of the project.
 ```bash
-make
+cd build/
+cmake ..
 ```
+in the build directories there will be a binary file of the app called `exoc99_main` which can be run directly as an isolate program without need of any dependence.
+next to the app there should be list of library which serve difference purpose, and will be explain in the [libexo.](doc_for_libexo.md)
 
 ### How the game run
 - The game start with a question of where to place the first piece, O.
@@ -30,7 +35,7 @@ the first one to make 3 in a row will win!!! :)
 
 ## Features
 - Fast and Memory Optimized
-- Able to used its API of libexo.a for others project with tictactoe.
+- Able to used its library of libexo.a for others project with tictactoe.
 - Fun little game
 
 ## License
