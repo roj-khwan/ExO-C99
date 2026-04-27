@@ -39,7 +39,7 @@
 *.i*86
 *.x86_64
 *.hex
-tictactoe*
+bin/
 
 # Debug files
 *.dSYM/
@@ -65,6 +65,4 @@ all.txt
 tests/
 test_runner
 obj/
-in.txt
-
 # End of https://www.toptal.com/developers/gitignore/api/c
