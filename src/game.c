@@ -5,14 +5,12 @@
 // TODO : no output make the out put on main side only
 int play(board_t board, uint8_t side, uint64_t pos) {
   if (side > 1) {
-    printf("Side is binary!");
     return 0;
   }
 
   // check if filled
   if (getpiece(board, pos) != 0) {
     // log this is filled
-    printf("It's filled!");
     return 0;
   }
   

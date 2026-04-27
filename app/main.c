@@ -16,8 +16,10 @@ int coreloop(board_t board){
     // place piece!
     ret = play(board, (uint8_t) side, (uint64_t) (pos - 1));
     // check can't play
-    if (!ret)
+    if (!ret) {
+        printf("Can't place on position %d\n", pos + 1);
         return -1;
+    }
 
     // disply board
     display(board);
