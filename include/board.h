@@ -16,3 +16,4 @@ int getpiece(board_t board, uint64_t pos);
 int place(board_t board, uint8_t side, uint64_t pos);
 int checkpattern(board_t board, uint64_t* arr, size_t length, uint8_t piece);  
 void destroy(board_t out);
+int copy(board_t dest, board_t src);
