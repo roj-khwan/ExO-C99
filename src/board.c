@@ -50,7 +50,7 @@ void destroy(board_t board) {
     free(board);
 }
 
-void copy(board_t dest, board_t src) {
+int copy(board_t dest, board_t src) {
     for (size_t i = 0; i < BOARD_T_SIZE; i++) {
         dest[i] = src[i];
     }

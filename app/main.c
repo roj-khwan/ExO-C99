@@ -19,7 +19,7 @@ int coreloop(board_t board){
     static int side = 0, turn = 0;
     int pos, ret = -1;
 
-	pos = requestmove();
+    pos = requestmove();
     
     if (!play(board, (uint8_t) side, (uint64_t) (pos - 1))) {
 		printf("Can't place on position %d\n", pos + 1);
