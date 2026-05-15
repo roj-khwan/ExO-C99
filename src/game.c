@@ -3,22 +3,22 @@
 
 // game run
 // TODO : no output make the out put on main side only
-int play(board_t board, uint8_t side, uint64_t pos) {
+int8_t play(board_t board, uint8_t side, int16_t pos) {
   if (side > 1) {
     return 0;
   }
 
   // check if filled
-  if (getpiece(board, pos) != 0) {
+  if (getpiece(board, (uint64_t) pos) != 0) {
     // log this is filled
     return 0;
   }
   
-  place(board, side, pos);
+  place(board, side, (uint64_t) pos);
   return 1;
 }
 
-int display(board_t board) {
+void display(board_t board) {
   size_t x, y;
 
   for (y = BOARD_SIZE; y-- > 0;){
@@ -32,11 +32,9 @@ int display(board_t board) {
     }
     putchar('\n');
   }
-
-  return 0;
 }
 
-int checkfull(board_t board) {
+int8_t checkfull(board_t board) {
   size_t x, y;
 
   for (y = 0; y < BOARD_SIZE; y++){
@@ -67,7 +65,7 @@ void build_winpattern(uint64_t (*arr)[BOARD_SIZE]) {
   }
 }
 
-int checkwin(board_t board, uint8_t piece) {
+int8_t checkwin(board_t board, uint8_t piece) {
   #define PATTERN_SIZE BOARD_SIZE * 2 + 2
   // horizontals + verticals + 2 diagonals
   static uint64_t winpattern[PATTERN_SIZE][BOARD_SIZE];

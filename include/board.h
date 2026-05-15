@@ -12,8 +12,8 @@ typedef uint8_t* board_t;
 #define BOARD_T_SIZE (BOARD_SIZE * BOARD_SIZE + 3) / 4
 
 void create(board_t* out);
-int getpiece(board_t board, uint64_t pos);
-int place(board_t board, uint8_t side, uint64_t pos);
-int checkpattern(board_t board, uint64_t* arr, size_t length, uint8_t piece);  
+uint8_t getpiece(board_t board, uint64_t pos);
+int8_t place(board_t board, uint8_t side, uint64_t pos);
+int8_t checkpattern(board_t board, uint64_t* arr, size_t length, uint8_t piece);  
 void destroy(board_t out);
-int copy(board_t dest, board_t src);
+int8_t copy(board_t dest, board_t src);

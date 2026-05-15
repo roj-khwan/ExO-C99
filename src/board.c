@@ -7,7 +7,7 @@ void create(board_t* board) {
     *board = (board_t) calloc(BOARD_T_SIZE, sizeof(boardbyte_t));
 }
 
-int getpiece(board_t board, uint64_t pos) {
+uint8_t getpiece(board_t board, uint64_t pos) {
     if (pos >= BOARD_SIZE * BOARD_SIZE) {
         // TODO : Loging
         return -1;
@@ -20,7 +20,7 @@ int getpiece(board_t board, uint64_t pos) {
     return filled + (piece & filled);
 }
 
-int place(board_t board, uint8_t side, uint64_t pos) {
+int8_t place(board_t board, uint8_t side, uint64_t pos) {
     if (pos >= BOARD_SIZE * BOARD_SIZE) {
         // TODO : Loging
         return -1;
@@ -35,7 +35,7 @@ int place(board_t board, uint8_t side, uint64_t pos) {
     return 0;
 }
 
-int checkpattern(board_t board, uint64_t* arr, size_t length, uint8_t piece) {
+int8_t checkpattern(board_t board, uint64_t* arr, size_t length, uint8_t piece) {
     for (size_t i = 0; i < length; i++){
         if (BOARD_SIZE * BOARD_SIZE <= arr[i])
             return 0;
@@ -50,8 +50,9 @@ void destroy(board_t board) {
     free(board);
 }
 
-int copy(board_t dest, board_t src) {
+int8_t copy(board_t dest, board_t src) {
     for (size_t i = 0; i < BOARD_T_SIZE; i++) {
         dest[i] = src[i];
     }
+    return 0;
 }
